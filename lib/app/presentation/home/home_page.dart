@@ -16,8 +16,15 @@ class HomePage extends StatefulWidget {
 
 class _HomeState extends BaseState<HomeViewModel, HomePage> {
   @override
+  initState() {
+    super.initState();
+    viewModel.getTaskForToday();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    var date = DateFormat.yMEd().format(DateTime.now());
+    var date = DateFormat.yMEd().format(DateTime.now()); //yMEd
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -45,7 +52,7 @@ class _HomeState extends BaseState<HomeViewModel, HomePage> {
               ),
               AnimatedContainer(
                   duration: Duration(milliseconds: 300),
-                  height: viewModel.isAddingTask ? 160.h : 0,
+                  height: viewModel.isAddingTask ? 200.h : 0,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10.r),
                   ),
@@ -56,29 +63,50 @@ class _HomeState extends BaseState<HomeViewModel, HomePage> {
                       children: [
                         TextField(
                           style: AppTextStyle.captionMedium,
+                          controller: viewModel.taskNameController,
                           decoration: InputDecoration(
-                            hintText: "Task Name",
+                            labelText: "Task Name",
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8.r),
                             ),
                           ),
                         ),
-                        8.verticalSpace,
-                        TextField(
-                          style: AppTextStyle.captionMedium,
-                          decoration: InputDecoration(
-                            hintText: "Task Description",
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8.r),
-                            ),
-                            contentPadding: EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 8),
-                          ),
+                        ListTile(
+                          title: Text("How many pomodoros?",
+                              style: AppTextStyle.captionMedium),
+                          subtitle: Text("25 minutes each",
+                              style: AppTextStyle.captionRegular),
                         ),
-                        16.verticalSpace,
+                        Row(
+                          children: viewModel.pomodoroOptions
+                              .map((e) => Expanded(
+                                    child: TextButton(
+                                      onPressed: () {
+                                        viewModel.setselectedPomodoro(e);
+                                      },
+                                      child: Text("$e",
+                                          style: AppTextStyle.captionMedium
+                                              .copyWith(
+                                                  color: viewModel
+                                                              .selectedPomodoro ==
+                                                          e
+                                                      ? AppColors.accent
+                                                      : AppColors.secondary)),
+                                      style: TextButton.styleFrom(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(8.r),
+                                        ),
+                                      ),
+                                    ),
+                                  ))
+                              .toList(),
+                        ),
                         ElevatedButton(
-                          onPressed: () {
-                            // Implement your add task functionality here
+                          onPressed: () async {
+                            await viewModel.saveTodaysTasks().then((value) {
+                              viewModel.toggleAddingTask();
+                            });
                           },
                           child: Text("Add Task"),
                           style: ElevatedButton.styleFrom(
@@ -90,7 +118,44 @@ class _HomeState extends BaseState<HomeViewModel, HomePage> {
                         ),
                       ],
                     ),
-                  ))
+                  )),
+              ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: viewModel.todaysTasks.daysTasks.length,
+                itemBuilder: (context, index) {
+                  var task = viewModel.todaysTasks.daysTasks[index];
+                  return ListTile(
+                    title: Text(task.name, style: AppTextStyle.bodyMedium),
+                    subtitle: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10.h),
+                      child: Row(
+                        children: task.pomodoros
+                            .map((e) => GestureDetector(
+                                  onTap: () {
+                                    viewModel.completePomodoro(
+                                        task, task.pomodoros.indexOf(e));
+                                  },
+                                  child: Icon(
+                                    e.isCompleted
+                                        ? Icons.check_circle
+                                        : Icons.radio_button_unchecked,
+                                    color: AppColors.accent,
+                                  ),
+                                ))
+                            .toList(),
+                      ),
+                    ),
+                    trailing:
+                        task.pomodoros.every((element) => element.isCompleted)
+                            ? Icon(
+                                Icons.check,
+                                color: AppColors.accent,
+                              )
+                            : SizedBox.shrink(),
+                  );
+                },
+              ),
             ],
           ),
         ),

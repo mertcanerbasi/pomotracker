@@ -18,7 +18,7 @@ class AppTheme {
         inputDecorationTheme: InputDecorationTheme(
           errorMaxLines: 2,
           iconColor: AppColors.secondary.withOpacity(0.8),
-          hintStyle: AppTextStyle.captionRegular
+          labelStyle: AppTextStyle.captionRegular
               .copyWith(color: AppColors.secondary.withOpacity(0.8)),
           fillColor: AppColors.primary,
           filled: true,
