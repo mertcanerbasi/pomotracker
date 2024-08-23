@@ -6,10 +6,10 @@ class AppTheme {
         useMaterial3: true,
         highlightColor: Colors.transparent,
         splashColor: Colors.transparent,
-        scaffoldBackgroundColor: AppColors.backgroundColor,
+        scaffoldBackgroundColor: AppColors.primary,
         colorScheme: ColorScheme.fromSwatch().copyWith(
-          primary: AppColors.red,
-          secondary: AppColors.green,
+          primary: AppColors.primary,
+          secondary: AppColors.secondary,
         ),
       );
 }

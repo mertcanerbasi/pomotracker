@@ -8,7 +8,6 @@ import 'package:injectable/injectable.dart';
 abstract class AppModule {
   @Environment(Environment.prod)
   @Environment(Environment.dev)
-  @Order(-1001)
   @preResolve
   Future<GetStorage> get storage async {
     await GetStorage.init("MyStorage");

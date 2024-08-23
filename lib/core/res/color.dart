@@ -2,22 +2,10 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static MaterialColor primarySwatch = const Color(0xFFDC143C).toMaterial();
-
-  static const Color red = Color(0xFFEB5757);
-  static const Color green = Color(0xFF13c316);
-
-  //New design colors
-  static const Color vividOrange = Color(0xFFDC143C);
-  static const Color royalBlue = Color(0xFF2563EB);
-  static const Color neroBlack = Color(0xFF151515);
-  static const Color ghostWhite = Color(0xFFFCFCDD);
-  static const Color textFieldBg = Color(0xFF2C2C2E);
-
-  static const Color text = Color(0xFFFCFCDD);
-  static const Color primary = Color(0xFF2E8B57);
-  static const Color accent = Color(0xFF8FBC8F);
-  static const Color backgroundColor = Color(0xFFFFFFFF);
+  static MaterialColor primarySwatch = const Color(0xFFFFFFFF).toMaterial();
+  static const Color primary = Color(0xFFFFFFFF);
+  static const Color secondary = Color(0xFF333333);
+  static const Color accent = Color(0xFF007BFF);
 }
 
 extension ColorsEx on Color {

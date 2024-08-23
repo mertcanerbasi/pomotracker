@@ -12,6 +12,8 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:get_storage/get_storage.dart' as _i792;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:pomotracker/app/presentation/app/app.vm.dart' as _i161;
+import 'package:pomotracker/app/presentation/onboarding/onboarding.vm.dart'
+    as _i885;
 import 'package:pomotracker/app/presentation/root/root_page.vm.dart' as _i670;
 import 'package:pomotracker/core/di/app_module.dart' as _i399;
 import 'package:pomotracker/core/local_data_source/local_data_source.dart'
@@ -32,6 +34,8 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     final appModule = _$AppModule();
+    gh.factory<_i670.RootViewModel>(() => _i670.RootViewModel());
+    gh.factory<_i885.OnboardingViewModel>(() => _i885.OnboardingViewModel());
     await gh.factoryAsync<_i792.GetStorage>(
       () => appModule.storage,
       registerFor: {
@@ -47,7 +51,6 @@ extension GetItInjectableX on _i174.GetIt {
         _dev,
       },
     );
-    gh.factory<_i670.RootViewModel>(() => _i670.RootViewModel());
     gh.singleton<_i161.AppViewModel>(
         () => _i161.AppViewModel(gh<_i730.LocalDataSource>()));
     return this;

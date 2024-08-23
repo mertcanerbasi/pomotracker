@@ -7,4 +7,4 @@ import 'package:injectable/injectable.dart';
 
 GetIt getIt = GetIt.instance;
 @InjectableInit()
-Future setupDI() => getIt.init();
+Future setupDI(String environment) => getIt.init(environment: environment);

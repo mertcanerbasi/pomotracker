@@ -12,7 +12,6 @@ abstract class LocalDataSource {
 
 @Environment(Environment.prod)
 @Environment(Environment.dev)
-@Order(-1000)
 @LazySingleton(as: LocalDataSource)
 class LocalDataSourceImpl implements LocalDataSource {
   final GetStorage _getStorage;

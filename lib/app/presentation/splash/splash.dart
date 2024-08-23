@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pomotracker/core/res/color.dart';
 import 'package:pomotracker/core/res/text_styles.dart';
 
 import 'package:route_map/route_map.dart';
@@ -11,12 +10,11 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: AppColors.backgroundColor,
         body: Center(
-          child: Text(
-            "Splash",
-            style: AppTextStyle.titleMedium,
-          ),
-        ));
+      child: Text(
+        "Splash",
+        style: AppTextStyle.titleMedium,
+      ),
+    ));
   }
 }
