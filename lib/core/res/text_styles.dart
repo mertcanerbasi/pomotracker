@@ -1,6 +1,7 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pomotracker/core/res/color.dart';
 
 class AppTextStyle {
   BuildContext context;
@@ -8,60 +9,66 @@ class AppTextStyle {
   static TextStyle loginAppName = TextStyle(
     fontSize: 32.sp,
     fontWeight: FontWeight.w900,
-    color: Colors.white,
+    color: AppColors.secondary,
   );
 
   static TextStyle headlineMedium = TextStyle(
     fontSize: 24.sp,
     fontWeight: FontWeight.w800,
-    color: Colors.white,
+    color: AppColors.secondary,
   );
 
   static TextStyle headlineRegular = TextStyle(
     fontSize: 24.sp,
     fontWeight: FontWeight.w400,
-    color: Colors.white,
+    color: AppColors.secondary,
   );
 
   static TextStyle titleMedium = TextStyle(
     fontSize: 20.sp,
     fontWeight: FontWeight.w500,
-    color: Colors.white,
+    color: AppColors.secondary,
   );
 
   static TextStyle subheadingMedium = TextStyle(
     fontSize: 16.sp,
     fontWeight: FontWeight.w400,
-    color: Colors.white,
+    color: AppColors.secondary,
   );
 
   static TextStyle bodyMedium = TextStyle(
     fontSize: 14.sp,
     fontWeight: FontWeight.w800,
-    color: Colors.white,
+    color: AppColors.secondary,
   );
 
   static TextStyle bodyRegular = TextStyle(
     fontSize: 14.sp,
     fontWeight: FontWeight.w400,
-    color: Colors.white,
+    color: AppColors.secondary,
   );
 
   static TextStyle captionRegular = TextStyle(
     fontSize: 12.sp,
     fontWeight: FontWeight.w400,
-    color: Colors.white,
+    color: AppColors.secondary,
+  );
+
+  static TextStyle captionMedium = TextStyle(
+    fontSize: 12.sp,
+    fontWeight: FontWeight.w700,
+    color: AppColors.secondary,
   );
 
   static TextStyle minicaps = TextStyle(
     fontSize: 10.sp,
     fontWeight: FontWeight.w500,
-    color: Colors.white,
+    color: AppColors.secondary,
   );
 
   static TextStyle button = TextStyle(
     fontSize: 14.sp,
     fontWeight: FontWeight.w500,
-    color: Colors.white,
+    color: AppColors.secondary,
   );
 }

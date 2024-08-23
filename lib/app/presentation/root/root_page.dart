@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pomotracker/app/presentation/root/root_page.vm.dart';
 import 'package:pomotracker/core/base/base_widget.dart';
 import 'package:route_map/route_map.dart';
@@ -16,27 +17,33 @@ class _RootState extends BaseState<RootViewModel, RootPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
         currentIndex: viewModel.currentIndex,
         onTap: (index) {
           viewModel.changePage(index);
         },
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.leaderboard_outlined),
+            icon: Icon(Icons.timer_outlined),
             label: "Tasks",
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.history,
+              Icons.manage_history_outlined,
             ),
             label: "History",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: "Profile",
+            icon: Icon(Icons.settings_outlined),
+            label: "Settings",
           ),
         ],
+      ),
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.h),
+        child: IndexedStack(
+          index: viewModel.currentIndex,
+          children: viewModel.pages,
+        ),
       ),
     );
   }
