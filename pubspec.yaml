@@ -10,6 +10,7 @@ dependencies:
   dio: 5.4.3
   flutter:
     sdk: flutter
+  flutter_local_notifications: ^17.2.2
   flutter_localizations:
     sdk: flutter
   flutter_screenutil: ^5.9.3
