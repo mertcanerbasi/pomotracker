@@ -20,8 +20,6 @@ import 'package:pomotracker/app/presentation/onboarding/onboarding.vm.dart'
 import 'package:pomotracker/app/presentation/pomodoro/pomodoro_page.vm.dart'
     as _i446;
 import 'package:pomotracker/app/presentation/root/root_page.vm.dart' as _i670;
-import 'package:pomotracker/app/presentation/settings/settings_page.vm.dart'
-    as _i449;
 import 'package:pomotracker/core/di/app_module.dart' as _i399;
 import 'package:pomotracker/core/local_data_source/local_data_source.dart'
     as _i730;
@@ -59,8 +57,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.singleton<_i161.AppViewModel>(
         () => _i161.AppViewModel(gh<_i730.LocalDataSource>()));
-    gh.factory<_i449.SettingsViewModel>(
-        () => _i449.SettingsViewModel(gh<_i730.LocalDataSource>()));
     gh.factory<_i466.HomeViewModel>(
         () => _i466.HomeViewModel(gh<_i730.LocalDataSource>()));
     gh.factory<_i286.HistoryViewModel>(

@@ -6,7 +6,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:route_map/route_map.dart';
-import 'package:pomotracker/app/presentation/settings/settings_page.dart';
 import 'package:pomotracker/app/presentation/home/home_page.dart';
 import 'package:pomotracker/app/presentation/splash/splash.dart';
 import 'package:pomotracker/app/presentation/history/history_page.dart';
@@ -15,7 +14,6 @@ import 'package:pomotracker/app/presentation/root/root_page.dart';
 import 'package:pomotracker/app/presentation/onboarding/onboarding_page.dart';
 
 class RouteMaps {
-  static const String settingsRoute = "/settings_page";
   static const String homeRoute = "/home_page";
   static const String splashRoute = "splash";
   static const String historyRoute = "/history_page";
@@ -26,9 +24,6 @@ class RouteMaps {
 
 Map<String, RouteModel> get routes => _routes;
 final Map<String, RouteModel> _routes = {
-  RouteMaps.settingsRoute: RouteModel(
-    (_) => const SettingsPage(),
-  ),
   RouteMaps.homeRoute: RouteModel(
     (_) => const HomePage(),
   ),
@@ -58,11 +53,6 @@ Route? $onGenerateRoute(RouteSettings routeSettings,
       routes,
       redirect: redirect,
     );
-
-class SettingsRoute extends BaseRoute {
-  SettingsRoute() : super(RouteMaps.settingsRoute);
-  static const String name = RouteMaps.settingsRoute;
-}
 
 class HomeRoute extends BaseRoute {
   HomeRoute() : super(RouteMaps.homeRoute);

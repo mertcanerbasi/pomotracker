@@ -27,7 +27,8 @@ class HomeViewModel extends BaseViewModel {
 
   List<int> pomodoroOptions = [1, 2, 3, 4];
 
-  int? get taskCount => _todaysTasks.daysTasks.length;
+  int? get totalPomodoros => _todaysTasks.daysTasks
+      .fold(0, (prev, task) => (prev ?? 0) + task.pomodoros.length);
 
   DaysTask _todaysTasks = DaysTask(daysTasks: [], date: '');
   DaysTask get todaysTasks => _todaysTasks;

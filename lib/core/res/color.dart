@@ -5,7 +5,7 @@ class AppColors {
   static MaterialColor primarySwatch = const Color(0xFFFFFFFF).toMaterial();
   static const Color primary = Color(0xFFFFFFFF);
   static const Color secondary = Color(0xFF333333);
-  static const Color accent = Color(0xFF007BFF);
+  static const Color accent = Color(0xFFE94F4F);
 }
 
 extension ColorsEx on Color {

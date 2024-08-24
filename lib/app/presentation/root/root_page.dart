@@ -31,10 +31,6 @@ class _RootState extends BaseState<RootViewModel, RootPage> {
             ),
             label: "History",
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings_outlined),
-            label: "Settings",
-          ),
         ],
       ),
       body: Padding(

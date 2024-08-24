@@ -47,7 +47,7 @@ class _HomeState extends BaseState<HomeViewModel, HomePage> {
               ListTile(
                 title: Text("Today", style: AppTextStyle.bodyMedium),
                 subtitle: Text(date, style: AppTextStyle.captionRegular),
-                trailing: Text("${viewModel.taskCount ?? 0}",
+                trailing: Text("${viewModel.totalPomodoros ?? 0}",
                     style: AppTextStyle.bodyMedium),
               ),
               AnimatedContainer(

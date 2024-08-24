@@ -85,7 +85,7 @@ class AppTheme {
     type: BottomNavigationBarType.fixed,
     selectedItemColor: AppColors.accent,
     enableFeedback: false,
-    unselectedItemColor: AppColors.accent.lighten(0.4),
+    unselectedItemColor: AppColors.accent.lighten(0.3),
     showSelectedLabels: true,
     showUnselectedLabels: false,
     selectedLabelStyle: AppTextStyle.bodyRegular,
