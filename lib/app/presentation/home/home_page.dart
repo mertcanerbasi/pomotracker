@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:pomotracker/app/presentation/home/home_page.vm.dart';
 import 'package:pomotracker/app/router/app_router.routes.dart';
@@ -44,7 +43,7 @@ class _HomeState extends BaseState<HomeViewModel, HomePage> {
                   ),
                 ],
               ),
-              5.verticalSpace,
+              SizedBox(height: 10),
               ListTile(
                 title: Text("Today", style: AppTextStyle.bodyMedium),
                 subtitle: Text(date, style: AppTextStyle.captionRegular),
@@ -53,71 +52,72 @@ class _HomeState extends BaseState<HomeViewModel, HomePage> {
               ),
               AnimatedContainer(
                   duration: Duration(milliseconds: 300),
-                  height: viewModel.isAddingTask ? 200.h : 0,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.r),
-                  ),
+                  height: viewModel.isAddingTask ? 300 : 0,
                   child: Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
-                    child: ListView(
-                      children: [
-                        TextField(
-                          style: AppTextStyle.captionMedium,
-                          controller: viewModel.taskNameController,
-                          decoration: InputDecoration(
-                            labelText: "Task Name",
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8.r),
+                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                    child: Center(
+                      child: ListView(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        children: [
+                          TextField(
+                            style: AppTextStyle.captionMedium,
+                            controller: viewModel.taskNameController,
+                            decoration: InputDecoration(
+                              labelText: "Task Name",
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
                             ),
                           ),
-                        ),
-                        ListTile(
-                          title: Text("How many pomodoros?",
-                              style: AppTextStyle.captionMedium),
-                          subtitle: Text("25 minutes each",
-                              style: AppTextStyle.captionRegular),
-                        ),
-                        Row(
-                          children: viewModel.pomodoroOptions
-                              .map((e) => Expanded(
-                                    child: TextButton(
-                                      onPressed: () {
-                                        viewModel.setselectedPomodoro(e);
-                                      },
-                                      child: Text("$e",
-                                          style: AppTextStyle.captionMedium
-                                              .copyWith(
-                                                  color: viewModel
-                                                              .selectedPomodoro ==
-                                                          e
-                                                      ? AppColors.accent
-                                                      : AppColors.secondary)),
-                                      style: TextButton.styleFrom(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8.r),
+                          ListTile(
+                            title: Text("How many pomodoros?",
+                                style: AppTextStyle.captionMedium),
+                            subtitle: Text("25 minutes each",
+                                style: AppTextStyle.captionRegular),
+                          ),
+                          Row(
+                            children: viewModel.pomodoroOptions
+                                .map((e) => Expanded(
+                                      child: TextButton(
+                                        onPressed: () {
+                                          viewModel.setselectedPomodoro(e);
+                                        },
+                                        child: Text("$e",
+                                            style: AppTextStyle.captionMedium
+                                                .copyWith(
+                                                    color: viewModel
+                                                                .selectedPomodoro ==
+                                                            e
+                                                        ? AppColors.accent
+                                                        : AppColors.secondary)),
+                                        style: TextButton.styleFrom(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ))
-                              .toList(),
-                        ),
-                        ElevatedButton(
-                          onPressed: () async {
-                            await viewModel.saveTodaysTasks().then((value) {
-                              viewModel.toggleAddingTask();
-                            });
-                          },
-                          child: Text("Add Task"),
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.r),
-                            ),
-                            padding: EdgeInsets.symmetric(vertical: 12),
+                                    ))
+                                .toList(),
                           ),
-                        ),
-                      ],
+                          SizedBox(height: 10),
+                          ElevatedButton(
+                            onPressed: () async {
+                              await viewModel.saveTodaysTasks().then((value) {
+                                viewModel.toggleAddingTask();
+                              });
+                            },
+                            child: Text("Add Task"),
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              padding: EdgeInsets.symmetric(vertical: 12),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   )),
               ListView.builder(
@@ -129,7 +129,7 @@ class _HomeState extends BaseState<HomeViewModel, HomePage> {
                   return ListTile(
                     title: Text(task.name, style: AppTextStyle.bodyMedium),
                     subtitle: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10.h),
+                      padding: EdgeInsets.symmetric(vertical: 10),
                       child: Row(
                         children: task.pomodoros
                             .map((e) => Icon(

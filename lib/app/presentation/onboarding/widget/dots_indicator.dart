@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:pomotracker/core/res/color.dart';
 
@@ -22,7 +21,7 @@ class DotsIndicator extends StatelessWidget {
       Color color = i == currentPage - 1
           ? AppColors.secondary
           : AppColors.secondary.withOpacity(0.5);
-      double size = i == currentPage - 1 ? 8.w : 6.w;
+      double size = i == currentPage - 1 ? 8 : 6;
 
       dots.add(Container(
         width: size,
@@ -35,7 +34,7 @@ class DotsIndicator extends StatelessWidget {
 
       // Add horizontal space between dots, except after the last dot
       if (i < totalPages - 1) {
-        dots.add(SizedBox(width: 5.w));
+        dots.add(SizedBox(width: 5));
       }
     }
 

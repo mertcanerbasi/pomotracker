@@ -11,7 +11,8 @@ Route? onGenerateRoute(RouteSettings routeSettings) =>
 
       if (RouteMaps.splashRoute.contains(route)) {
         var localDataSource = getIt<LocalDataSource>();
-        if (localDataSource.onBoarded) {
+        var appSettings = localDataSource.appSettings;
+        if (appSettings?.onBoarded == true) {
           return RouteMaps.root;
         } else {
           return RouteMaps.onboardingRoute;

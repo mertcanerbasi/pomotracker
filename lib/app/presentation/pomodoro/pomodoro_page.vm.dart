@@ -67,7 +67,7 @@ class PomodoroViewModel extends BaseViewModel {
     setisTimerRunning(true);
     setstartDate(DateTime.now());
     timer = Timer.periodic(Duration(seconds: 1), (timer) {
-      if (DateTime.now().difference(startDate!).inSeconds >= 5) {
+      if (DateTime.now().difference(startDate!).inMinutes >= 25) {
         endTimer();
         return;
       }

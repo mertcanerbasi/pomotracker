@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:pomotracker/app/presentation/pomodoro/pomodoro_page.vm.dart';
 import 'package:pomotracker/core/base/base_widget.dart';
@@ -45,7 +44,7 @@ class _PomodoroState extends BaseState<PomodoroViewModel, PomodoroPage> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.h),
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -59,7 +58,7 @@ class _PomodoroState extends BaseState<PomodoroViewModel, PomodoroPage> {
                       style:
                           TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
                     ),
-                    20.verticalSpace,
+                    SizedBox(height: 20),
                     Text("Get to work!", textAlign: TextAlign.center),
                   ],
                 ),
@@ -71,7 +70,7 @@ class _PomodoroState extends BaseState<PomodoroViewModel, PomodoroPage> {
                 child: Text(
                     viewModel.isTimerRunning ? 'Finish Timer' : 'Start Timer'),
               ),
-              20.verticalSpace,
+              SizedBox(height: 20),
             ],
           ),
         ),

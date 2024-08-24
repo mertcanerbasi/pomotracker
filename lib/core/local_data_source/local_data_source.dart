@@ -1,14 +1,13 @@
 // ignore_for_file: unused_field
 import 'package:get_storage/get_storage.dart';
 import 'package:injectable/injectable.dart';
+import 'package:pomotracker/app/model/app_settings.dart';
 import 'package:pomotracker/app/model/task.dart';
 
 abstract class LocalDataSource {
   Future<void> clear();
-  Future setLanguageCode(String language);
-  String? get languageCode;
-  Future setOnBoarded(bool value);
-  bool get onBoarded;
+  Future<void> setAppSettings(ApplicationSettings appSettings);
+  ApplicationSettings? get appSettings;
   Future<List<DaysTask>> getAllTasks();
   Future<DaysTask?> getTaskByDate(String date);
   Future<void> saveTask(DaysTask task);
@@ -27,20 +26,18 @@ class LocalDataSourceImpl implements LocalDataSource {
     return;
   }
 
-  @override
-  String? get languageCode => _getStorage.read("language");
-
-  @override
-  Future setLanguageCode(String language) async {
-    return await _getStorage.write("language", language);
+  Future<void> setAppSettings(ApplicationSettings appSettings) async {
+    // Save app settings to local storage
+    return _getStorage.write("appSettings", appSettings.toJson());
   }
 
-  @override
-  bool get onBoarded => _getStorage.read("onBoarded") ?? false;
-
-  @override
-  Future setOnBoarded(bool value) {
-    return _getStorage.write("onBoarded", value);
+  ApplicationSettings? get appSettings {
+    // Get app settings from local storage
+    final settings = _getStorage.read("appSettings");
+    if (settings != null) {
+      return ApplicationSettings.fromJson(settings);
+    }
+    return null;
   }
 
   @override

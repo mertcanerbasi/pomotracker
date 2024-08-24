@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pomotracker/app/presentation/onboarding/widget/dots_indicator.dart';
 import 'package:pomotracker/core/res/color.dart';
 import 'package:pomotracker/core/res/images.dart';
@@ -56,16 +55,16 @@ class OnboardingWidget extends StatelessWidget {
       children: [
         Container(
           clipBehavior: Clip.hardEdge,
-          height: 0.4.sh,
+          height: MediaQuery.of(context).size.height * 0.4,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10.r),
+            borderRadius: BorderRadius.circular(10),
             image: DecorationImage(
               image: AssetImage(imagePath),
               fit: BoxFit.cover,
             ),
           ),
         ),
-        20.verticalSpace,
+        SizedBox(height: 20),
         Text(
           title,
           textAlign: TextAlign.center,
@@ -73,7 +72,7 @@ class OnboardingWidget extends StatelessWidget {
             fontWeight: FontWeight.w800,
           ),
         ),
-        10.verticalSpace,
+        SizedBox(height: 10),
         Text(
           description,
           textAlign: TextAlign.center,
@@ -94,7 +93,7 @@ class OnboardingWidget extends StatelessWidget {
             ),
           ),
         ),
-        50.verticalSpace,
+        SizedBox(height: 50),
         // 4 dots indicator
         DotsIndicator(
           currentPage: page,

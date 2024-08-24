@@ -20,7 +20,7 @@ class AppViewModel extends BaseViewModel {
   GlobalKey<NavigatorState> get mainNavigatorKey => _mainNavigatorKey;
 
   String get platformLocale {
-    if (_localDataSource.languageCode == null) {
+    if (_localDataSource.appSettings?.languageCode == null) {
       if (AppConstants.supportedLanguages
           .contains(Platform.localeName.split('_')[0].toUpperCase())) {
         return Platform.localeName;
@@ -28,7 +28,7 @@ class AppViewModel extends BaseViewModel {
         return "en";
       }
     } else {
-      return _localDataSource.languageCode!;
+      return _localDataSource.appSettings?.languageCode ?? "EN";
     }
   }
 }

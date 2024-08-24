@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pomotracker/app/presentation/onboarding/onboarding.vm.dart';
 import 'package:pomotracker/app/presentation/onboarding/widget/onboarding_widget.dart';
 import 'package:pomotracker/app/router/app_router.routes.dart';
 import 'package:pomotracker/core/base/base_widget.dart';
-import 'package:pomotracker/core/di/locator.dart';
-import 'package:pomotracker/core/local_data_source/local_data_source.dart';
 import 'package:pomotracker/core/res/color.dart';
 import 'package:pomotracker/core/res/text_styles.dart';
 
@@ -26,7 +23,7 @@ class _OnboardingState extends BaseState<OnboardingViewModel, OnboardingPage> {
         actions: [
           TextButton(
             onPressed: () async {
-              await getIt<LocalDataSource>().setOnBoarded(true);
+              await viewModel.setOnBoarded();
               SplashRoute().pushReplacement(context);
             },
             child: Text(
@@ -43,14 +40,14 @@ class _OnboardingState extends BaseState<OnboardingViewModel, OnboardingPage> {
       //Slidable 4 steps onboarding
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.h),
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
           child: OnboardingWidget(
             page: viewModel.currentPage,
             onContinue: () async {
               if (viewModel.currentPage < 4) {
                 viewModel.setcurrentPage(viewModel.currentPage + 1);
               } else {
-                await getIt<LocalDataSource>().setOnBoarded(true);
+                await viewModel.setOnBoarded();
                 SplashRoute().pushReplacement(context);
               }
             },

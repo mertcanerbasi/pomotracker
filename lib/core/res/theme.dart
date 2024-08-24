@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pomotracker/core/res/color.dart';
 import 'package:pomotracker/core/res/text_styles.dart';
 
@@ -24,16 +23,16 @@ class AppTheme {
           filled: true,
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(10.r)),
+              borderRadius: BorderRadius.circular(10)),
           errorBorder: OutlineInputBorder(
               borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(10.r)),
+              borderRadius: BorderRadius.circular(10)),
           border: OutlineInputBorder(
               borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(10.r)),
+              borderRadius: BorderRadius.circular(10)),
           enabledBorder: OutlineInputBorder(
               borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(10.r)),
+              borderRadius: BorderRadius.circular(10)),
         ),
         iconTheme: IconThemeData(color: AppColors.accent),
         appBarTheme: AppBarTheme(
@@ -51,18 +50,18 @@ class AppTheme {
     style: ElevatedButton.styleFrom(
       elevation: 0,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(5.r),
+        borderRadius: BorderRadius.circular(5),
       ),
-      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       textStyle: AppTextStyle.button,
     ),
   );
 
   static ListTileThemeData listTileTheme = ListTileThemeData(
     tileColor: AppColors.primary,
-    contentPadding: EdgeInsets.symmetric(horizontal: 5.w),
+    contentPadding: EdgeInsets.symmetric(horizontal: 5),
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(5.r),
+      borderRadius: BorderRadius.circular(5),
     ),
     titleTextStyle: AppTextStyle.bodyRegular,
     subtitleTextStyle: AppTextStyle.captionRegular,
@@ -73,9 +72,9 @@ class AppTheme {
       textStyle: AppTextStyle.bodyMedium,
       backgroundColor: AppColors.primary,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(5.r),
+        borderRadius: BorderRadius.circular(5),
       ),
-      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
     ),
   );
 

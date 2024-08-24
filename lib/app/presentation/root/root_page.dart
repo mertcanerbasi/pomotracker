@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pomotracker/app/presentation/root/root_page.vm.dart';
 import 'package:pomotracker/core/base/base_widget.dart';
 import 'package:route_map/route_map.dart';
@@ -39,7 +38,7 @@ class _RootState extends BaseState<RootViewModel, RootPage> {
         ],
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.h),
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
         child: IndexedStack(
           index: viewModel.currentIndex,
           children: viewModel.pages,
