@@ -4,6 +4,7 @@ import 'package:pomotracker/app/presentation/home/home_page.vm.dart';
 import 'package:pomotracker/app/router/app_router.routes.dart';
 import 'package:pomotracker/core/base/base_widget.dart';
 import 'package:pomotracker/core/res/color.dart';
+import 'package:pomotracker/core/res/images.dart';
 import 'package:pomotracker/core/res/text_styles.dart';
 import 'package:route_map/route_map.dart';
 
@@ -33,6 +34,12 @@ class _HomeState extends BaseState<HomeViewModel, HomePage> {
             children: [
               Row(
                 children: [
+                  Image.asset(
+                    AppImages.logo,
+                    width: 50,
+                    height: 50,
+                  ),
+                  SizedBox(width: 5),
                   Text("PomoTracker", style: AppTextStyle.headlineMedium),
                   Spacer(),
                   IconButton(

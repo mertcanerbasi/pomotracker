@@ -36,6 +36,14 @@ class _HistoryPageState extends BaseState<HistoryViewModel, HistoryPage> {
                 if (snapshot.hasError) {
                   return Center(child: Text('Error: ${snapshot.error}'));
                 } else {
+                  if (snapshot.data?.isEmpty ?? true) {
+                    return ListTile(
+                      title: Text("No tasks history"),
+                      subtitle: Text(
+                          "You have not completed or created any tasks yet"),
+                      trailing: Icon(Icons.sentiment_dissatisfied),
+                    );
+                  }
                   return Expanded(
                     child: ListView.builder(
                       itemCount: snapshot.data?.length ?? 0,
