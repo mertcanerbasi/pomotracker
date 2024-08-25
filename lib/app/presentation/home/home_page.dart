@@ -173,10 +173,7 @@ class _HomeState extends BaseState<HomeViewModel, HomePage> {
                                   Icons.check,
                                   color: AppColors.secondary,
                                 )
-                              : Icon(
-                                  Icons.play_arrow,
-                                  color: AppColors.secondary,
-                                ),
+                              : null,
                     ),
                   );
                 },

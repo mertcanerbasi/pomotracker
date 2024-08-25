@@ -1,4 +1,6 @@
 // ignore_for_file: unused_field
+import 'dart:async';
+
 import 'package:get_storage/get_storage.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pomotracker/app/model/app_settings.dart';
@@ -12,6 +14,7 @@ abstract class LocalDataSource {
   Future<DaysTask?> getTaskByDate(String date);
   Future<void> saveTask(DaysTask task);
   Future<void> deleteKey(String key);
+  Stream<List<DaysTask>> get tasksStream;
 }
 
 @Environment(Environment.prod)
@@ -74,5 +77,29 @@ class LocalDataSourceImpl implements LocalDataSource {
   Future<void> deleteKey(String key) {
     // Delete task from local storage
     return _getStorage.remove(key);
+  }
+
+  @override
+  Stream<List<DaysTask>> get tasksStream async* {
+    // Create a stream from the changes of all keys
+    final controller = StreamController<List<DaysTask>>();
+
+    _getStorage.listen(() {
+      final tasks = _getStorage.getKeys().map((key) {
+        if (key != "appSettings") {
+          final task = _getStorage.read(key);
+          return DaysTask.fromJson(task);
+        }
+        return null;
+      }).toList();
+      controller.add(tasks.whereType<DaysTask>().toList());
+    });
+
+    // Add initial data
+    final initialTasks = await getAllTasks();
+    controller.add(initialTasks);
+
+    // Provide stream data
+    yield* controller.stream;
   }
 }

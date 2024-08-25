@@ -45,21 +45,5 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
-	<key>UIUserNotificationSettings</key>
-	<dict>
-		<key>UIUserNotificationAlertStyle</key>
-		<string>UIUserNotificationAlertStyleAlert</string>
-		<key>UIUserNotificationTypes</key>
-		<array>
-			<string>UIUserNotificationTypeAlert</string>
-			<string>UIUserNotificationTypeBadge</string>
-			<string>UIUserNotificationTypeSound</string>
-		</array>
-	</dict>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>fetch</string>
-		<string>remote-notification</string>
-	</array>
 </dict>
 </plist>

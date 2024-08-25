@@ -37,6 +37,7 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     final appModule = _$AppModule();
+    gh.factory<_i670.RootViewModel>(() => _i670.RootViewModel());
     await gh.factoryAsync<_i792.GetStorage>(
       () => appModule.storage,
       registerFor: {
@@ -58,8 +59,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i466.HomeViewModel(gh<_i730.LocalDataSource>()));
     gh.factory<_i286.HistoryViewModel>(
         () => _i286.HistoryViewModel(gh<_i730.LocalDataSource>()));
-    gh.factory<_i670.RootViewModel>(
-        () => _i670.RootViewModel(gh<_i730.LocalDataSource>()));
     gh.factory<_i885.OnboardingViewModel>(
         () => _i885.OnboardingViewModel(gh<_i730.LocalDataSource>()));
     return this;

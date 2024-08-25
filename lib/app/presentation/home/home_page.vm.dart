@@ -92,8 +92,7 @@ class HomeViewModel extends BaseViewModel {
     } else {
       await _localDataSource.saveTask(todaysTasks);
     }
-    await getIt<HistoryViewModel>().getAllTasks();
-    getIt<HistoryViewModel>().notifyListeners();
+
     await getTaskForToday();
   }
 

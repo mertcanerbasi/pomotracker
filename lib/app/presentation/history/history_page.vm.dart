@@ -8,11 +8,7 @@ class HistoryViewModel extends BaseViewModel {
   final LocalDataSource _localDataSource;
   HistoryViewModel(this._localDataSource);
 
-  // Local Data Operations
-
-  //Get all tasks
-  Future<List<DaysTask?>> getAllTasks() async {
-    final tasks = await _localDataSource.getAllTasks();
-    return tasks.reversed.toList();
+  Stream<List<DaysTask?>> tasksStream() {
+    return _localDataSource.tasksStream;
   }
 }
