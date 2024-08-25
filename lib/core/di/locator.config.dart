@@ -12,6 +12,8 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:get_storage/get_storage.dart' as _i792;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:pomotracker/app/presentation/app/app.vm.dart' as _i161;
+import 'package:pomotracker/app/presentation/edit_task/edit_task.vm.dart'
+    as _i499;
 import 'package:pomotracker/app/presentation/history/history_page.vm.dart'
     as _i286;
 import 'package:pomotracker/app/presentation/home/home_page.vm.dart' as _i466;
@@ -57,6 +59,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i161.AppViewModel(gh<_i730.LocalDataSource>()));
     gh.factory<_i466.HomeViewModel>(
         () => _i466.HomeViewModel(gh<_i730.LocalDataSource>()));
+    gh.factory<_i499.EditTaskViewModel>(
+        () => _i499.EditTaskViewModel(gh<_i730.LocalDataSource>()));
     gh.factory<_i286.HistoryViewModel>(
         () => _i286.HistoryViewModel(gh<_i730.LocalDataSource>()));
     gh.factory<_i885.OnboardingViewModel>(

@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
 import 'package:pomotracker/app/model/task.dart';
-import 'package:pomotracker/app/presentation/history/history_page.vm.dart';
 import 'package:pomotracker/core/base/base_view_model.dart';
-import 'package:pomotracker/core/di/locator.dart';
 import 'package:pomotracker/core/local_data_source/local_data_source.dart';
 import 'package:uuid/uuid.dart';
 

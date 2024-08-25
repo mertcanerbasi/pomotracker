@@ -33,9 +33,9 @@ class DaysTask {
 }
 
 class Task {
-  final String name;
+  String name;
   final String id;
-  final List<Pomodoro> pomodoros;
+  List<Pomodoro> pomodoros;
 
   Task({
     required this.name,
