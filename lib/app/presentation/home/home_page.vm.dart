@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
 import 'package:pomotracker/app/model/task.dart';
+import 'package:pomotracker/app/presentation/history/history_page.vm.dart';
 import 'package:pomotracker/core/base/base_view_model.dart';
+import 'package:pomotracker/core/di/locator.dart';
 import 'package:pomotracker/core/local_data_source/local_data_source.dart';
 import 'package:uuid/uuid.dart';
 
@@ -79,6 +81,19 @@ class HomeViewModel extends BaseViewModel {
     // Save the sorted tasks again
     await _localDataSource.saveTask(todaysTasks);
     // Retrieve the updated list of tasks
+    await getTaskForToday();
+  }
+
+  //Delete Task
+  Future<void> deleteTask(Task task) async {
+    todaysTasks.daysTasks.remove(task);
+    if (todaysTasks.daysTasks.isEmpty) {
+      await _localDataSource.deleteKey(todaysTasks.date);
+    } else {
+      await _localDataSource.saveTask(todaysTasks);
+    }
+    await getIt<HistoryViewModel>().getAllTasks();
+    getIt<HistoryViewModel>().notifyListeners();
     await getTaskForToday();
   }
 

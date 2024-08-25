@@ -63,7 +63,7 @@ class AppTheme {
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(5),
     ),
-    titleTextStyle: AppTextStyle.bodyRegular,
+    titleTextStyle: AppTextStyle.bodyMedium,
     subtitleTextStyle: AppTextStyle.captionRegular,
   );
 

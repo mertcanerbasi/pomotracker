@@ -11,6 +11,7 @@ abstract class LocalDataSource {
   Future<List<DaysTask>> getAllTasks();
   Future<DaysTask?> getTaskByDate(String date);
   Future<void> saveTask(DaysTask task);
+  Future<void> deleteKey(String key);
 }
 
 @Environment(Environment.prod)
@@ -44,13 +45,13 @@ class LocalDataSourceImpl implements LocalDataSource {
   Future<List<DaysTask>> getAllTasks() {
     // Get all tasks from local storage
     final tasks = _getStorage.getKeys().map((e) {
-      if (e == "language" || e == "onBoarded") {
+      if (e == "appSettings") {
       } else {
         final task = _getStorage.read(e);
         return DaysTask.fromJson(task);
       }
     }).toList();
-    return Future.value(tasks);
+    return Future.value(tasks.whereType<DaysTask>().toList());
   }
 
   @override
@@ -67,5 +68,11 @@ class LocalDataSourceImpl implements LocalDataSource {
   Future<void> saveTask(DaysTask task) {
     // Save task to local storage
     return _getStorage.write(task.date, task.toJson());
+  }
+
+  @override
+  Future<void> deleteKey(String key) {
+    // Delete task from local storage
+    return _getStorage.remove(key);
   }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:pomotracker/app/presentation/home/home_page.vm.dart';
-import 'package:pomotracker/app/router/app_router.routes.dart';
 import 'package:pomotracker/core/base/base_widget.dart';
 import 'package:pomotracker/core/res/color.dart';
 import 'package:pomotracker/core/res/text_styles.dart';
@@ -126,30 +125,27 @@ class _HomeState extends BaseState<HomeViewModel, HomePage> {
                 itemCount: viewModel.todaysTasks.daysTasks.length,
                 itemBuilder: (context, index) {
                   var task = viewModel.todaysTasks.daysTasks[index];
-                  return ListTile(
-                    title: Text(task.name, style: AppTextStyle.bodyMedium),
-                    subtitle: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10),
+                  return Dismissible(
+                    key: Key(task.id),
+                    onDismissed: (direction) async {
+                      await viewModel.deleteTask(task);
+                    },
+                    background: Container(
+                      color: AppColors.accent,
                       child: Row(
-                        children: task.pomodoros
-                            .map((e) => Icon(
-                                  e.isCompleted
-                                      ? Icons.check_circle
-                                      : Icons.radio_button_unchecked,
-                                  color: AppColors.accent,
-                                ))
-                            .toList(),
+                        children: [
+                          Spacer(),
+                          Icon(Icons.delete, color: AppColors.primary),
+                          SizedBox(width: 10),
+                        ],
                       ),
                     ),
-                    onTap: () {
-                      if (!task.pomodoros
-                          .every((element) => element.isCompleted)) {
-                        PomodoroRoute(
-                                taskId: task.id,
-                                day: viewModel.todaysTasks.date)
-                            .push(context)
-                            .then((value) {
-                          if (value == true) {
+                    child: ListTile(
+                      title: Text(task.name, style: AppTextStyle.bodyMedium),
+                      subtitle: Padding(
+                        padding: EdgeInsets.symmetric(vertical: 10),
+                        child: GestureDetector(
+                          onTap: () {
                             viewModel.completePomodoro(
                               task,
                               task.pomodoros.indexOf(
@@ -158,20 +154,30 @@ class _HomeState extends BaseState<HomeViewModel, HomePage> {
                                 ),
                               ),
                             );
-                          }
-                        });
-                      }
-                    },
-                    trailing:
-                        task.pomodoros.every((element) => element.isCompleted)
-                            ? Icon(
-                                Icons.check,
-                                color: AppColors.secondary,
-                              )
-                            : Icon(
-                                Icons.play_arrow,
-                                color: AppColors.secondary,
-                              ),
+                          },
+                          child: Row(
+                            children: task.pomodoros
+                                .map((e) => Icon(
+                                      e.isCompleted
+                                          ? Icons.check_circle
+                                          : Icons.radio_button_unchecked,
+                                      color: AppColors.accent,
+                                    ))
+                                .toList(),
+                          ),
+                        ),
+                      ),
+                      trailing:
+                          task.pomodoros.every((element) => element.isCompleted)
+                              ? Icon(
+                                  Icons.check,
+                                  color: AppColors.secondary,
+                                )
+                              : Icon(
+                                  Icons.play_arrow,
+                                  color: AppColors.secondary,
+                                ),
+                    ),
                   );
                 },
               ),
