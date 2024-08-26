@@ -49,7 +49,10 @@ class _HistoryPageState extends BaseState<HistoryViewModel, HistoryPage> {
                 ],
               );
             } else {
-              if (snapshot.data?.isEmpty ?? true) {
+              if (snapshot.data
+                      ?.where((element) => element?.date != viewModel.today)
+                      .isEmpty ??
+                  true) {
                 return Column(
                   children: [
                     Row(

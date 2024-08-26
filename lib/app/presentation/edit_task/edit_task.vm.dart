@@ -33,21 +33,37 @@ class EditTaskViewModel extends BaseViewModel {
   TextEditingController taskNameController = TextEditingController();
 
   // is Add button enabled
-  bool get isAddButtonEnabled =>
-      daysTasks.daysTasks
-          .where((element) => element.id == taskId)
-          .first
-          .pomodoros
-          .length <
-      4;
+  bool get isAddButtonEnabled {
+    if (daysTasks.daysTasks
+            .where((element) => element.id == taskId)
+            .firstOrNull ==
+        null) {
+      return false;
+    } else {
+      return daysTasks.daysTasks
+              .where((element) => element.id == taskId)
+              .first
+              .pomodoros
+              .length <
+          4;
+    }
+  }
 
-  bool get isRemoveButtonEnabled =>
-      daysTasks.daysTasks
-          .where((element) => element.id == taskId)
-          .first
-          .pomodoros
-          .length >
-      1;
+  bool get isRemoveButtonEnabled {
+    if (daysTasks.daysTasks
+            .where((element) => element.id == taskId)
+            .firstOrNull ==
+        null) {
+      return false;
+    } else {
+      return daysTasks.daysTasks
+              .where((element) => element.id == taskId)
+              .first
+              .pomodoros
+              .length >
+          1;
+    }
+  }
 
   //Save task
   Future<void> saveTask() async {
@@ -55,5 +71,21 @@ class EditTaskViewModel extends BaseViewModel {
         daysTasks.daysTasks.where((element) => element.id == taskId).first;
     task.name = taskNameController.text;
     await _localDataSource.saveTask(daysTasks);
+  }
+
+  Future<void> completePomodoro(Task task, int index) async {
+    task.pomodoros[index].isCompleted = !task.pomodoros[index].isCompleted;
+    await _localDataSource.saveTask(daysTasks);
+    notifyListeners();
+  }
+
+  Future<void> deleteTask(Task task) async {
+    daysTasks.daysTasks.remove(task);
+    if (daysTasks.daysTasks.isEmpty) {
+      await _localDataSource.deleteKey(daysTasks.date);
+    } else {
+      await _localDataSource.saveTask(daysTasks);
+    }
+    notifyListeners();
   }
 }

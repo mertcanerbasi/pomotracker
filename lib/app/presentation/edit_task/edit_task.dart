@@ -31,6 +31,17 @@ class _EditTaskState extends BaseState<EditTaskViewModel, EditTaskPage> {
           "Edit",
           style: AppTextStyle.headlineMedium,
         ),
+        actions: [
+          IconButton(
+            onPressed: () async {
+              await viewModel.deleteTask(viewModel.daysTasks.daysTasks
+                  .where((element) => element.id == viewModel.taskId)
+                  .first);
+              Navigator.pop(context, true);
+            },
+            icon: Icon(Icons.delete),
+          ),
+        ],
       ),
       body: SafeArea(
         child: Padding(
@@ -53,23 +64,6 @@ class _EditTaskState extends BaseState<EditTaskViewModel, EditTaskPage> {
                 children: [
                   SizedBox(width: 10),
                   IconButton(
-                    onPressed: viewModel.isAddButtonEnabled
-                        ? () {
-                            viewModel.daysTasks.daysTasks
-                                .where(
-                                    (element) => element.id == viewModel.taskId)
-                                .first
-                                .pomodoros
-                                .add(Pomodoro(isCompleted: false));
-                            viewModel.notifyListeners();
-                          }
-                        : null,
-                    icon: Icon(Icons.add),
-                  ),
-                  Spacer(),
-                  Text("Pomodoros", style: AppTextStyle.bodyMedium),
-                  Spacer(),
-                  IconButton(
                     onPressed: viewModel.isRemoveButtonEnabled
                         ? () {
                             viewModel.daysTasks.daysTasks
@@ -83,6 +77,23 @@ class _EditTaskState extends BaseState<EditTaskViewModel, EditTaskPage> {
                         : null,
                     icon: Icon(Icons.remove),
                   ),
+                  Spacer(),
+                  Text("Pomodoros", style: AppTextStyle.bodyMedium),
+                  Spacer(),
+                  IconButton(
+                    onPressed: viewModel.isAddButtonEnabled
+                        ? () {
+                            viewModel.daysTasks.daysTasks
+                                .where(
+                                    (element) => element.id == viewModel.taskId)
+                                .first
+                                .pomodoros
+                                .add(Pomodoro(isCompleted: false));
+                            viewModel.notifyListeners();
+                          }
+                        : null,
+                    icon: Icon(Icons.add),
+                  ),
                   SizedBox(width: 10),
                 ],
               ),
@@ -90,25 +101,38 @@ class _EditTaskState extends BaseState<EditTaskViewModel, EditTaskPage> {
               Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: viewModel.daysTasks.daysTasks
-                      .where((element) => element.id == viewModel.taskId)
-                      .first
-                      .pomodoros
-                      .map((e) {
-                    return IconButton(
-                      onPressed: () {
-                        viewModel.daysTasks.daysTasks
-                            .where((element) => element.id == viewModel.taskId)
-                            .first
-                            .pomodoros
-                            .remove(e);
-                        viewModel.notifyListeners();
-                      },
-                      icon: Icon(
-                        Icons.circle_outlined,
-                        color: AppColors.secondary,
-                      ),
-                    );
-                  }).toList()),
+                              .where(
+                                  (element) => element.id == viewModel.taskId)
+                              .firstOrNull !=
+                          null
+                      ? viewModel.daysTasks.daysTasks
+                          .where((element) => element.id == viewModel.taskId)
+                          .first
+                          .pomodoros
+                          .map((e) {
+                          return IconButton(
+                            onPressed: () {
+                              viewModel.completePomodoro(
+                                  viewModel.daysTasks.daysTasks
+                                      .where((element) =>
+                                          element.id == viewModel.taskId)
+                                      .first,
+                                  viewModel.daysTasks.daysTasks
+                                      .where((element) =>
+                                          element.id == viewModel.taskId)
+                                      .first
+                                      .pomodoros
+                                      .indexOf(e));
+                            },
+                            icon: Icon(
+                              e.isCompleted
+                                  ? Icons.check_circle
+                                  : Icons.radio_button_unchecked,
+                              color: AppColors.accent,
+                            ),
+                          );
+                        }).toList()
+                      : []),
               SizedBox(height: 50),
               ElevatedButton(
                 onPressed: () async {
