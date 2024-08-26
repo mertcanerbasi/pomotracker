@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pomotracker/app/model/task.dart';
 import 'package:pomotracker/app/presentation/history/history_page.vm.dart';
+import 'package:pomotracker/app/router/app_router.routes.dart';
 import 'package:pomotracker/core/base/base_widget.dart';
 import 'package:pomotracker/core/res/color.dart';
 import 'package:pomotracker/core/res/text_styles.dart';
@@ -75,7 +76,6 @@ class _HistoryPageState extends BaseState<HistoryViewModel, HistoryPage> {
                         viewModel.isFiltered
                             ? IconButton(
                                 onPressed: () {
-                                  viewModel.searchController.clear();
                                   viewModel.toggleFilter();
                                 },
                                 icon: Icon(Icons.clear),
@@ -166,7 +166,7 @@ class _HistoryPageState extends BaseState<HistoryViewModel, HistoryPage> {
                                                 size: 20,
                                               ),
                                         title: Text(
-                                          "${task.name}", // Assuming `task.title` exists
+                                          "${task.name}", // Assuming task.title exists
                                         ),
                                         trailing: task.pomodoros.every(
                                                 (pomodoro) =>
@@ -215,10 +215,21 @@ class _HistoryPageState extends BaseState<HistoryViewModel, HistoryPage> {
                     if (!viewModel.isFiltered)
                       Expanded(
                         child: ListView.builder(
-                          itemCount: snapshot.data?.length ?? 0,
+                          itemCount: snapshot.data?.reversed
+                                  .where(
+                                    (element) =>
+                                        element?.date != viewModel.today,
+                                  )
+                                  .toList()
+                                  .length ??
+                              0,
                           itemBuilder: (context, index) {
-                            var reversedData =
-                                snapshot.data?.reversed.toList()[index];
+                            var reversedData = snapshot.data?.reversed
+                                .toList()
+                                .where(
+                                  (element) => element?.date != viewModel.today,
+                                )
+                                .toList()[index];
                             var date = reversedData?.date;
                             var totalPomodoros = reversedData?.daysTasks.fold(0,
                                 (prev, task) => (prev) + task.pomodoros.length);
@@ -250,8 +261,14 @@ class _HistoryPageState extends BaseState<HistoryViewModel, HistoryPage> {
                                           Icons.radio_button_unchecked,
                                           size: 20,
                                         ),
+                                  onTap: () {
+                                    EditTaskRoute(
+                                      daysTasks: reversedData!,
+                                      taskId: task.id,
+                                    ).push(context);
+                                  },
                                   title: Text(
-                                    "${task.name}", // Assuming `task.title` exists
+                                    "${task.name}", // Assuming task.title exists
                                   ),
                                   trailing: task.pomodoros.every(
                                           (pomodoro) => pomodoro.isCompleted)

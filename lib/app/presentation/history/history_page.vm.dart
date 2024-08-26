@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:intl/intl.dart';
 import 'package:pomotracker/app/model/task.dart';
 import 'package:pomotracker/core/base/base_view_model.dart';
 import 'package:pomotracker/core/local_data_source/local_data_source.dart';
@@ -40,17 +41,32 @@ class HistoryViewModel extends BaseViewModel {
 
   TextEditingController searchController = TextEditingController();
 
+  var today = DateFormat('MM-dd-yyyy').format(DateTime.now());
+
   void filterTasks(String value) {
     if (value.isEmpty) {
       setfilteredTasks(null);
       return;
     }
-    final filtered = tasksList?.where((element) {
-      return element?.daysTasks.any((task) {
+
+    final filtered = tasksList
+        ?.map((daysTask) {
+          final filteredTasks = daysTask?.daysTasks.where((task) {
             return task.name.toLowerCase().contains(value.toLowerCase());
-          }) ??
-          false;
-    }).toList();
+          }).toList();
+
+          if (filteredTasks != null && filteredTasks.isNotEmpty) {
+            return DaysTask(
+              date: daysTask!.date,
+              daysTasks: filteredTasks,
+            );
+          }
+
+          return null;
+        })
+        .where((daysTask) => daysTask != null)
+        .toList();
+
     setfilteredTasks(filtered);
   }
 }
