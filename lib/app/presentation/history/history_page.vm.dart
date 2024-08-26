@@ -10,13 +10,6 @@ class HistoryViewModel extends BaseViewModel {
   final LocalDataSource _localDataSource;
   HistoryViewModel(this._localDataSource);
 
-  List<DaysTask?>? _tasksList;
-  List<DaysTask?>? get tasksList => _tasksList;
-  void settasksList(List<DaysTask?>? tasksList) {
-    _tasksList = tasksList;
-    notifyListeners();
-  }
-
   List<DaysTask?>? _filteredTasks;
   List<DaysTask?>? get filteredTasks => _filteredTasks;
   void setfilteredTasks(List<DaysTask?>? filteredTasks) {
@@ -43,30 +36,18 @@ class HistoryViewModel extends BaseViewModel {
 
   var today = DateFormat('MM-dd-yyyy').format(DateTime.now());
 
-  void filterTasks(String value) {
-    if (value.isEmpty) {
-      setfilteredTasks(null);
-      return;
-    }
-
-    final filtered = tasksList
-        ?.map((daysTask) {
-          final filteredTasks = daysTask?.daysTasks.where((task) {
-            return task.name.toLowerCase().contains(value.toLowerCase());
-          }).toList();
-
-          if (filteredTasks != null && filteredTasks.isNotEmpty) {
-            return DaysTask(
-              date: daysTask!.date,
-              daysTasks: filteredTasks,
-            );
-          }
-
-          return null;
-        })
-        .where((daysTask) => daysTask != null)
+  List<DaysTask?>? filterTasks(String value, List<DaysTask?>? tasksList) {
+    if (value.isEmpty) return tasksList;
+    var x = tasksList
+        ?.where((element) => element?.date != today)
+        .toList()
+        .where((element) =>
+            element?.daysTasks.any((task) {
+              return task.name.toLowerCase().contains(value.toLowerCase());
+            }) ??
+            false)
         .toList();
-
-    setfilteredTasks(filtered);
+    setfilteredTasks(x);
+    return x;
   }
 }

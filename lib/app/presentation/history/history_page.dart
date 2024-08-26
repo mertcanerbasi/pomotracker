@@ -82,7 +82,6 @@ class _HistoryPageState extends BaseState<HistoryViewModel, HistoryPage> {
                               )
                             : IconButton(
                                 onPressed: () async {
-                                  viewModel.settasksList(snapshot.data);
                                   viewModel.toggleFilter();
                                 },
                                 icon: Icon(Icons.search),
@@ -99,8 +98,7 @@ class _HistoryPageState extends BaseState<HistoryViewModel, HistoryPage> {
                           child: TextField(
                             controller: viewModel.searchController,
                             onSubmitted: (value) {
-                              viewModel.filterTasks(value);
-                              print(viewModel.filteredTasks);
+                              viewModel.filterTasks(value, snapshot.data);
                             },
                             decoration: InputDecoration(
                               hintText: "Search",
@@ -125,7 +123,9 @@ class _HistoryPageState extends BaseState<HistoryViewModel, HistoryPage> {
                               ),
                             Expanded(
                               child: ListView.builder(
-                                itemCount: viewModel.filteredTasks?.length ?? 0,
+                                itemCount:
+                                    viewModel.filteredTasks?.reversed.length ??
+                                        0,
                                 itemBuilder: (context, index) {
                                   var reversedData = viewModel
                                       .filteredTasks?.reversed
