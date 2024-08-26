@@ -153,6 +153,10 @@ class _HistoryPageState extends BaseState<HistoryViewModel, HistoryPage> {
                                     dense: true,
                                     children: tasks.map((task) {
                                       return ListTile(
+                                        onTap: () => EditTaskRoute(
+                                          daysTasks: reversedData!,
+                                          taskId: task.id,
+                                        ).push(context),
                                         leading: task.pomodoros.every(
                                                 (pomodoro) =>
                                                     pomodoro.isCompleted)
