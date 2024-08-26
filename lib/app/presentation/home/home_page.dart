@@ -170,27 +170,21 @@ class _HomeState extends BaseState<HomeViewModel, HomePage> {
                         title: Text(task.name, style: AppTextStyle.bodyMedium),
                         subtitle: Padding(
                           padding: EdgeInsets.symmetric(vertical: 10),
-                          child: GestureDetector(
-                            onTap: () {
-                              viewModel.completePomodoro(
-                                task,
-                                task.pomodoros.indexOf(
-                                  task.pomodoros.firstWhere(
-                                    (element) => !element.isCompleted,
-                                  ),
-                                ),
-                              );
-                            },
-                            child: Row(
-                              children: task.pomodoros
-                                  .map((e) => Icon(
+                          child: Row(
+                            children: task.pomodoros
+                                .map((e) => GestureDetector(
+                                      onTap: () {
+                                        viewModel.completePomodoro(
+                                            task, task.pomodoros.indexOf(e));
+                                      },
+                                      child: Icon(
                                         e.isCompleted
                                             ? Icons.check_circle
                                             : Icons.radio_button_unchecked,
                                         color: AppColors.accent,
-                                      ))
-                                  .toList(),
-                            ),
+                                      ),
+                                    ))
+                                .toList(),
                           ),
                         ),
                         trailing: task.pomodoros
