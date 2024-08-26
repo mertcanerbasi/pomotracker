@@ -84,6 +84,33 @@ class _HistoryPageState extends BaseState<HistoryViewModel, HistoryPage> {
                               title: Text(
                                 "${task.name}", // Assuming `task.title` exists
                               ),
+                              trailing: task.pomodoros
+                                      .every((pomodoro) => pomodoro.isCompleted)
+                                  ? null
+                                  : Container(
+                                      width: 100,
+                                      height: 20,
+                                      clipBehavior: Clip.hardEdge,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(50),
+                                        color:
+                                            AppColors.accent.withOpacity(0.05),
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          ...task.pomodoros.map((pomodoro) {
+                                            if (pomodoro.isCompleted) {
+                                              return Expanded(
+                                                child: Container(
+                                                  color: AppColors.accent,
+                                                ),
+                                              );
+                                            } else {
+                                              return Spacer();
+                                            }
+                                          }).toList(),
+                                        ],
+                                      )),
                               subtitle: Text(
                                 "${task.pomodoros.length} pomodoros",
                               ),
