@@ -17,8 +17,6 @@ import 'package:pomotracker/app/presentation/edit_task/edit_task.vm.dart'
 import 'package:pomotracker/app/presentation/history/history_page.vm.dart'
     as _i286;
 import 'package:pomotracker/app/presentation/home/home_page.vm.dart' as _i466;
-import 'package:pomotracker/app/presentation/onboarding/onboarding.vm.dart'
-    as _i885;
 import 'package:pomotracker/app/presentation/pomodoro/pomodoro_page.vm.dart'
     as _i446;
 import 'package:pomotracker/app/presentation/root/root_page.vm.dart' as _i670;
@@ -67,8 +65,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i286.HistoryViewModel(gh<_i730.LocalDataSource>()));
     gh.factory<_i446.PomodoroViewModel>(
         () => _i446.PomodoroViewModel(gh<_i730.LocalDataSource>()));
-    gh.factory<_i885.OnboardingViewModel>(
-        () => _i885.OnboardingViewModel(gh<_i730.LocalDataSource>()));
     return this;
   }
 }

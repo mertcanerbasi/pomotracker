@@ -32,7 +32,7 @@ class _MyAppState extends BaseState<AppViewModel, MyApp> {
         supportedLocales: AppLocalizations.supportedLocales,
         theme: AppTheme.theme(),
         navigatorKey: viewModel.mainNavigatorKey,
-        initialRoute: RouteMaps.splashRoute,
+        initialRoute: RouteMaps.root,
         onUnknownRoute: (settings) =>
             MaterialPageRoute(builder: (_) => const SizedBox()),
         locale: Locale(viewModel.platformLocale),
