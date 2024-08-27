@@ -22,8 +22,9 @@ class _PomodoroState extends BaseState<PomodoroViewModel, PomodoroPage> {
     super.initState();
     viewModel.init(widget.taskId, widget.day);
     endFrame((p0) async {
-      viewModel.isPomodoroCompleted.listen((isCompleted) {
+      viewModel.isPomodoroCompleted.listen((isCompleted) async {
         if (isCompleted) {
+          await viewModel.cancelAlarm();
           Navigator.pop(context, true);
         }
       });

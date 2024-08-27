@@ -77,11 +77,12 @@ class PomodoroViewModel extends BaseViewModel {
     });
   }
 
-  void endTimer() {
+  Future<void> endTimer() async {
     timer?.cancel();
     setisTimerRunning(false);
     setstartDate(null);
     _isPomodoroCompletedController.add(true);
+    await cancelAlarm();
   }
 
   Future<void> scheduleAlarm() async {
@@ -119,6 +120,10 @@ class PomodoroViewModel extends BaseViewModel {
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
     );
+  }
+
+  Future<void> cancelAlarm() async {
+    await flutterLocalNotificationsPlugin.cancel(0);
   }
 
   Future<Task?> getTask(String date, String taskId) async {
