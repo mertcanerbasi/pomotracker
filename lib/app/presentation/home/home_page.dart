@@ -128,65 +128,93 @@ class _HomeState extends BaseState<HomeViewModel, HomePage> {
                 itemCount: viewModel.todaysTasks.daysTasks.length,
                 itemBuilder: (context, index) {
                   var task = viewModel.todaysTasks.daysTasks[index];
-                  return GestureDetector(
-                    onLongPress: () {
-                      EditTaskRoute(
-                        daysTasks: viewModel.todaysTasks,
-                        taskId: task.id,
-                      ).push(context).then((value) {
-                        if (value == true) {
-                          viewModel.getTaskForToday();
-                        }
-                      });
+                  return Dismissible(
+                    key: Key(task.id),
+                    direction: DismissDirection
+                        .endToStart, // Allow only right-to-left swipe
+                    onDismissed: (direction) async {
+                      if (direction == DismissDirection.endToStart) {
+                        await viewModel.deleteTask(task);
+                      }
                     },
-                    child: Dismissible(
-                      key: Key(task.id),
-                      direction: DismissDirection
-                          .endToStart, // Allow only right-to-left swipe
-                      onDismissed: (direction) async {
-                        if (direction == DismissDirection.endToStart) {
-                          await viewModel.deleteTask(task);
-                        }
-                      },
-                      background: Container(
-                        color: AppColors.accent,
+                    background: Container(
+                      color: AppColors.accent,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          SizedBox(width: 15),
+                          Icon(Icons.delete, color: AppColors.primary),
+                          SizedBox(width: 15),
+                        ],
+                      ),
+                    ),
+                    child: ListTile(
+                      title: Text(task.name, style: AppTextStyle.bodyMedium),
+                      subtitle: Padding(
+                        padding: EdgeInsets.symmetric(vertical: 10),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            SizedBox(width: 15),
-                            Icon(Icons.delete, color: AppColors.primary),
-                            SizedBox(width: 15),
-                          ],
+                          children: task.pomodoros
+                              .map((e) => GestureDetector(
+                                    onTap: () {
+                                      viewModel.completePomodoro(
+                                          task, task.pomodoros.indexOf(e));
+                                    },
+                                    child: Icon(
+                                      e.isCompleted
+                                          ? Icons.check_circle
+                                          : Icons.radio_button_unchecked,
+                                      color: AppColors.accent,
+                                    ),
+                                  ))
+                              .toList(),
                         ),
                       ),
-                      child: ListTile(
-                        title: Text(task.name, style: AppTextStyle.bodyMedium),
-                        subtitle: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 10),
-                          child: Row(
-                            children: task.pomodoros
-                                .map((e) => GestureDetector(
-                                      onTap: () {
-                                        viewModel.completePomodoro(
-                                            task, task.pomodoros.indexOf(e));
-                                      },
-                                      child: Icon(
-                                        e.isCompleted
-                                            ? Icons.check_circle
-                                            : Icons.radio_button_unchecked,
-                                        color: AppColors.accent,
-                                      ),
-                                    ))
-                                .toList(),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              EditTaskRoute(
+                                daysTasks: viewModel.todaysTasks,
+                                taskId: task.id,
+                              ).push(context).then((value) {
+                                if (value == true) {
+                                  viewModel.getTaskForToday();
+                                }
+                              });
+                            },
+                            icon:
+                                Icon(Icons.more_vert, color: AppColors.accent),
                           ),
-                        ),
-                        trailing: task.pomodoros
-                                .every((element) => element.isCompleted)
-                            ? Icon(
-                                Icons.check,
-                                color: AppColors.secondary,
-                              )
-                            : null,
+                          task.pomodoros.every((element) => element.isCompleted)
+                              ? SizedBox.shrink()
+                              : IconButton(
+                                  onPressed: () {
+                                    if (!task.pomodoros.every(
+                                        (element) => element.isCompleted)) {
+                                      PomodoroRoute(
+                                        taskId: task.id,
+                                        day: viewModel.todaysTasks.date,
+                                      ).push(context).then((value) {
+                                        if (value == true) {
+                                          viewModel.completePomodoro(
+                                            task,
+                                            task.pomodoros.indexOf(
+                                              task.pomodoros.firstWhere(
+                                                (element) =>
+                                                    !element.isCompleted,
+                                              ),
+                                            ),
+                                          );
+                                          viewModel.getTaskForToday();
+                                        }
+                                      });
+                                    }
+                                  },
+                                  icon: Icon(Icons.play_arrow,
+                                      color: AppColors.accent),
+                                ),
+                        ],
                       ),
                     ),
                   );

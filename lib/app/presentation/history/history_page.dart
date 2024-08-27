@@ -148,6 +148,7 @@ class _HistoryPageState extends BaseState<HistoryViewModel, HistoryPage> {
                                     ),
                                     subtitle: Text(
                                       date ?? '',
+                                      style: AppTextStyle.captionRegular,
                                     ),
                                     trailing: Text(
                                       "${totalPomodoros ?? 0}",
@@ -249,6 +250,7 @@ class _HistoryPageState extends BaseState<HistoryViewModel, HistoryPage> {
                               ),
                               subtitle: Text(
                                 date ?? '',
+                                style: AppTextStyle.captionRegular,
                               ),
                               trailing: Text(
                                 "${totalPomodoros ?? 0}",
